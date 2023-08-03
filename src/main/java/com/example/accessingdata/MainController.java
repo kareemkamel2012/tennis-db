@@ -18,7 +18,7 @@ public class MainController {
             , @RequestParam String ranking) { //todo: find out how to do this from postman
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
-
+        //todo: make ranking an Integer
         Player n = new Player();
         n.setName(name);
         n.setRanking(ranking);
@@ -29,7 +29,7 @@ public class MainController {
     @GetMapping(path="/all")
     public @ResponseBody Iterable<Player> getAllPlayers() {
         // This returns a JSON or XML with the players
-        return playerRepository.findAll(); //todo: return an https response if not found
+        return playerRepository.findAll();
     }
 
     @GetMapping(path="/get/{id}")
@@ -38,9 +38,40 @@ public class MainController {
         return playerRepository.findById(pathID); //todo: return an https response if not found
     }
 
+    @GetMapping(path="/name/{name}")
+    public @ResponseBody Optional<Player> getPlayerById(@PathVariable("name") String name) {
+        // This returns a JSON or XML with the player matching the id if there is one
+        return playerRepository.findByName(name);
+    }
+
     @GetMapping(path="/ranking/{ranking}")
     public @ResponseBody Optional<Player> getPlayerByRanking(@PathVariable("ranking") String ranking) {
         // This returns a JSON or XML with the player matching the id if there is one
         return playerRepository.findByRanking(ranking);
+    }
+
+    @PatchMapping(path="/update")
+    public @ResponseBody String updatePlayer (@RequestParam String name
+            , @RequestParam String ranking) {
+        // @ResponseBody means the returned String is the response, not a view name
+        // @RequestParam means it is a parameter from the GET or POST request
+        Player player = playerRepository.findByName(name).orElse(new Player());
+        player.setName(name);
+        player.setRanking(ranking);
+        playerRepository.save(player);
+        return "Updated";
+    }
+
+    @DeleteMapping(path="/delete")
+    public @ResponseBody String deletePlayer (@RequestParam String name) {
+        // @ResponseBody means the returned String is the response, not a view name
+        // @RequestParam means it is a parameter from the GET or POST request
+        if (playerRepository.existsByName(name)) {
+            playerRepository.deleteById(playerRepository.findByName(name).get().getId());
+            return "Deleted";
+        }
+        else {
+            return "Name not in database";
+        }
     }
 }

@@ -11,4 +11,8 @@ import java.util.Optional;
 
 public interface PlayerRepository extends CrudRepository<Player, Integer> {
     Optional<Player> findByRanking(String ranking);
+
+    boolean existsByName(String name);
+
+    Optional<Player> findByName(String name);
 }
