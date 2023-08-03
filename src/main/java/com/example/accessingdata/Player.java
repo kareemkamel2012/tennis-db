@@ -13,7 +13,7 @@ public class Player {
 
     private String name;
 
-    private String email;
+    private String ranking;
 
     public Integer getId() {
         return id;
@@ -31,11 +31,11 @@ public class Player {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getRanking() {
+        return ranking;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setRanking(String ranking) {
+        this.ranking = ranking;
     }
 }

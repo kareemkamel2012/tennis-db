@@ -1,14 +1,10 @@
 package com.example.accessingdata;
 
-import com.example.accessingdata.Player;
-import com.example.accessingdata.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller // This means that this class is a Controller
 @RequestMapping(path="/demo") // This means URL's start with /demo (after Application path)
@@ -19,13 +15,13 @@ public class MainController {
 
     @PostMapping(path="/add") // Map ONLY POST Requests
     public @ResponseBody String addNewPlayer (@RequestParam String name
-            , @RequestParam String email) {
+            , @RequestParam String ranking) { //todo: find out how to do this from postman
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
 
         Player n = new Player();
         n.setName(name);
-        n.setEmail(email);
+        n.setRanking(ranking);
         playerRepository.save(n);
         return "Saved";
     }
@@ -33,6 +29,18 @@ public class MainController {
     @GetMapping(path="/all")
     public @ResponseBody Iterable<Player> getAllPlayers() {
         // This returns a JSON or XML with the players
-        return playerRepository.findAll();
+        return playerRepository.findAll(); //todo: return an https response if not found
+    }
+
+    @GetMapping(path="/get/{id}")
+    public @ResponseBody Optional<Player> getPlayerById(@PathVariable("id") Integer pathID) {
+        // This returns a JSON or XML with the player matching the id if there is one
+        return playerRepository.findById(pathID); //todo: return an https response if not found
+    }
+
+    @GetMapping(path="/ranking/{ranking}")
+    public @ResponseBody Optional<Player> getPlayerByRanking(@PathVariable("ranking") String ranking) {
+        // This returns a JSON or XML with the player matching the id if there is one
+        return playerRepository.findByRanking(ranking);
     }
 }
