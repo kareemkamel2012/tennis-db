@@ -1,4 +1,4 @@
-package com.example.accessingdata;
+package com.example.accessingdata.Player;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,10 +10,8 @@ public class Player {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
-
     private String name;
-
-    private String ranking;
+    private Integer ranking;
 
     public Integer getId() {
         return id;
@@ -31,11 +29,11 @@ public class Player {
         this.name = name;
     }
 
-    public String getRanking() {
+    public Integer getRanking() {
         return ranking;
     }
 
-    public void setRanking(String ranking) {
+    public void setRanking(Integer ranking) {
         this.ranking = ranking;
     }
 }
