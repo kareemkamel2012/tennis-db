@@ -1,23 +1,39 @@
 package com.example.accessingdata.Controller;
 
 import com.example.accessingdata.Player.Player;
-import com.example.accessingdata.Repository.PlayerRepository;
 import com.example.accessingdata.Service.PlayerService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @Controller // This means that this class is a Controller
-@RequestMapping(path="/demo") // This means URL's start with /demo (after Application path)
+//@RequestMapping(path="/demo") // This means URL's start with /demo (after Application path)
 public class MainController {
     private PlayerService service;
 
     public MainController(PlayerService service) {
         this.service = service;
+    }
+
+    @GetMapping("/new")
+    public String addPlayerForm(Model model) {
+        return service.addPlayerForm(model);
+    }
+
+    @PostMapping("/new")
+    public String addPlayerSubmit(@ModelAttribute Player player, Model model) {
+        return service.addPlayerSubmit(player, model);
+    }
+
+    @GetMapping("/remove")
+    public String removePlayerForm(Model model) {
+        return service.removePlayerForm(model);
+    }
+
+    @PostMapping("/remove")
+    public String removePlayerSubmit(@ModelAttribute Player player, Model model) {
+        return service.removePlayerSubmit(player, model);
     }
 
     @PostMapping(path="/add") // Map ONLY POST Requests

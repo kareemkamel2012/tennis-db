@@ -5,6 +5,8 @@ import com.example.accessingdata.Repository.PlayerRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.Optional;
 
@@ -16,6 +18,27 @@ public class PlayerService {
         this.repository = repository;
     }
 
+    public String addPlayerForm(Model model) {
+        model.addAttribute("player", new Player());
+        return "newPlayer";
+    }
+
+    public String addPlayerSubmit(@ModelAttribute Player player, Model model) {
+        model.addAttribute("player", player);
+        addNewPlayer(player.getName(), player.getRanking());
+        return "newPlayerResult";
+    }
+
+    public String removePlayerForm(Model model) {
+        model.addAttribute("player", new Player());
+        return "removePlayer";
+    }
+
+    public String removePlayerSubmit(@ModelAttribute Player player, Model model) {
+        model.addAttribute("player", player);
+        deletePlayer(player.getId());
+        return "removePlayerResult";
+    }
     public ResponseEntity<Player> addNewPlayer (String name, int ranking) {
         Player newPlayer = new Player();
         if (repository.existsByName(name) || repository.existsByRanking(ranking)) {

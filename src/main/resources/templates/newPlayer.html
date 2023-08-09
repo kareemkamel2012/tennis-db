@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Add Player</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <h1>New Player</h1>
+  <form action="#" th:action="@{/new}" th:object="${player}" method="post">
+    <p>Name: <input type="text" th:field="*{name}" /></p>
+    <p>Ranking: <input type="number" th:field="*{ranking}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>
