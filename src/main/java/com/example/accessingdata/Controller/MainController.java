@@ -26,6 +26,16 @@ public class MainController {
         return service.addPlayerSubmit(player, model);
     }
 
+    @GetMapping("/modify")
+    public String updatePlayerForm(Model model) {
+        return service.updatePlayerForm(model);
+    }
+
+    @PostMapping("/modify")
+    public String updatePlayerSubmit(@ModelAttribute Player player, Model model) {
+        return service.updatePlayerSubmit(player, model);
+    }
+
     @GetMapping("/remove")
     public String removePlayerForm(Model model) {
         return service.removePlayerForm(model);

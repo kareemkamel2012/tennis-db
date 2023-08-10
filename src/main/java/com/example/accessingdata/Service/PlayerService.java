@@ -20,24 +20,35 @@ public class PlayerService {
 
     public String addPlayerForm(Model model) {
         model.addAttribute("player", new Player());
-        return "newPlayer";
+        return "newPlayer/newPlayer";
     }
 
     public String addPlayerSubmit(@ModelAttribute Player player, Model model) {
         model.addAttribute("player", player);
         addNewPlayer(player.getName(), player.getRanking());
-        return "newPlayerResult";
+        return "newPlayer/newPlayerResult";
+    }
+
+    public String updatePlayerForm(Model model) {
+        model.addAttribute("player", new Player());
+        return "updatePlayer/updatePlayer";
+    }
+
+    public String updatePlayerSubmit(@ModelAttribute Player player, Model model) {
+        model.addAttribute("player", player);
+        updatePlayer(player.getId(), player.getName(), player.getRanking());
+        return "updatePlayer/updatePlayerResult";
     }
 
     public String removePlayerForm(Model model) {
         model.addAttribute("player", new Player());
-        return "removePlayer";
+        return "removePlayer/removePlayer";
     }
 
     public String removePlayerSubmit(@ModelAttribute Player player, Model model) {
         model.addAttribute("player", player);
         deletePlayer(player.getId());
-        return "removePlayerResult";
+        return "removePlayer/removePlayerResult";
     }
     public ResponseEntity<Player> addNewPlayer (String name, int ranking) {
         Player newPlayer = new Player();

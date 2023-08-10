@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Player Updated</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Player Updated</h1>
+<p th:text="'Id: ' + ${player.id}" />
+<p th:text="'name: ' + ${player.name}" />
+<p th:text="'ranking: ' + ${player.ranking}" />
+<a href="/all">View all players</a>
+<a href="/modify">Update another player</a>
+</body>
+</html>
