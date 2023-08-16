@@ -18,6 +18,11 @@ public class PlayerService {
         this.repository = repository;
     }
 
+    public String viewPlayers(Model model) {
+        model.addAttribute("playerList", getAllPlayers().getBody());
+        return "viewPlayers/view";
+    }
+
     public String addPlayerForm(Model model) {
         model.addAttribute("player", new Player());
         return "newPlayer/newPlayer";
