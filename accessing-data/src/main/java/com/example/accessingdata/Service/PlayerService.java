@@ -30,7 +30,7 @@ public class PlayerService {
 
     public String addPlayerSubmit(@ModelAttribute Player player, Model model) {
         model.addAttribute("player", player);
-        addNewPlayer(player.getName(), player.getRanking());
+        addNewPlayer(player);
         return "newPlayer/newPlayerResult";
     }
 
@@ -41,7 +41,7 @@ public class PlayerService {
 
     public String updatePlayerSubmit(@ModelAttribute Player player, Model model) {
         model.addAttribute("player", player);
-        updatePlayer(player.getId(), player.getName(), player.getRanking());
+        updatePlayer(player);
         return "updatePlayer/updatePlayerResult";
     }
 
@@ -55,16 +55,13 @@ public class PlayerService {
         deletePlayer(player.getId());
         return "removePlayer/removePlayerResult";
     }
-    public ResponseEntity<Player> addNewPlayer (String name, int ranking) {
-        Player newPlayer = new Player();
-        if (repository.existsByName(name) || repository.existsByRanking(ranking)) {
+    public ResponseEntity<Player> addNewPlayer (Player player) {
+        if (repository.existsByName(player.getName()) || repository.existsByRanking(player.getRanking())) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
         else {
-            newPlayer.setName(name);
-            newPlayer.setRanking(ranking);
-            repository.save(newPlayer);
-            return new ResponseEntity<>(newPlayer, HttpStatus.CREATED);
+            repository.save(player);
+            return new ResponseEntity<>(player, HttpStatus.CREATED);
         }
     }
 
@@ -96,19 +93,16 @@ public class PlayerService {
         }
     }
 
-    public ResponseEntity<Player> updatePlayer(int id, String name, int ranking) {
-        Optional<Player> player = repository.findById(id);
-        if(!player.isPresent()) {
+    public ResponseEntity<Player> updatePlayer(Player player) {
+        Optional<Player> playerById = repository.findById(player.getId());
+        if(!playerById.isPresent()) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
 //        if (repository.existsByName(name) || repository.existsByRanking(ranking)) {
 //            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 //        } //todo: figure out the logic here
-        Player playerToUpdate = player.get();
-        playerToUpdate.setName(name);
-        playerToUpdate.setRanking(ranking);
-        repository.save(playerToUpdate);
-        return new ResponseEntity<>(playerToUpdate, HttpStatus.OK);
+        repository.save(player);
+        return new ResponseEntity<>(player, HttpStatus.OK);
     }
 
     public ResponseEntity<Void> deletePlayer(int id) {

@@ -53,11 +53,10 @@ public class MainController {
     }
 
     @PostMapping(path="/add") // Map ONLY POST Requests
-    public @ResponseBody ResponseEntity<Player> addNewPlayer (@RequestParam String name
-            , @RequestParam Integer ranking) {
+    public @ResponseBody ResponseEntity<Player> addNewPlayer (@RequestBody Player player) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
-        return service.addNewPlayer(name, ranking);
+        return service.addNewPlayer(player);
     }
 
     @GetMapping(path="/all")
@@ -85,11 +84,10 @@ public class MainController {
     }
 
     @PutMapping(path="/update")
-    public @ResponseBody ResponseEntity<Player> updatePlayer (@RequestParam Integer id, @RequestParam String name
-            , @RequestParam Integer ranking) {
+    public @ResponseBody ResponseEntity<Player> updatePlayer (@RequestBody Player player) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
-        return service.updatePlayer(id, name, ranking);
+        return service.updatePlayer(player);
     }
 
     @DeleteMapping(path="/delete")
