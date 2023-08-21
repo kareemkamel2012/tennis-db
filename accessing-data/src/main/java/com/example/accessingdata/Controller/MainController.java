@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller // This means that this class is a Controller
 //@RequestMapping(path="/demo") // This means URL's start with /demo (after Application path)
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class MainController {
     private PlayerService service;
 
