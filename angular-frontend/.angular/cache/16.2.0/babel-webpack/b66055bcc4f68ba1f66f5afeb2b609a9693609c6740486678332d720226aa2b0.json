@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class Player {}","map":{"version":3,"names":["Player"],"sources":["/Users/kareem.kamel/Projects/tennis-db/angular-frontend/src/app/player.ts"],"sourcesContent":["export class Player {\n    id: number;\n    name: string;\n    ranking: number;\n}\n"],"mappings":"AAAA,OAAM,MAAOA,MAAM"},"metadata":{},"sourceType":"module","externalDependencies":[]}

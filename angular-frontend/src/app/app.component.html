@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <ul class = "navbar-nav">
+      <li class = "nav-item">
+          <a routerLink="players" routerLinkActive="active" class="nav-link" >Player List</a>
+      </li>
+      <li class = "nav-item">
+          <a routerLink="create-player" routerLinkActive="active" class="nav-link" >Add Player</a>
+      </li>
+      <li class = "nav-item">
+        <a routerLink="update-player" routerLinkActive="active" class="nav-link" >Update Player</a>
+    </li>
+  </ul>
+</nav>
+
+<h1 class="text-center"> {{title}} </h1>
+<div class = "container">
+  <router-outlet></router-outlet>
+</div>
+<footer class = "footer">
+  <div class = "container">
+      <span>All Rights Reserved 2020 @JavaGuides</span>
+  </div>
+</footer>
