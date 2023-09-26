@@ -9,12 +9,16 @@ import { Player } from './player';
 })
 export class PlayerService {
 
-  private baseURL = "http://localhost:8080";
+  private baseURL = "http://localhost:8090";
 
   constructor(private httpClient: HttpClient) { }
 
   getPlayerList(): Observable<Player[]>{
     return this.httpClient.get<Player[]>(this.baseURL + "/all");
+  }
+
+  getPlayerById(id: number): Observable<Object>{
+    return this.httpClient.get(this.baseURL + "/id/" + id);
   }
 
   addPlayer(player: Player): Observable<Object>{
