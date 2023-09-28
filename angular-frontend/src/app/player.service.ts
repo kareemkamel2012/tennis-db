@@ -9,23 +9,31 @@ import { Player } from './player';
 })
 export class PlayerService {
 
-  private baseURL = "http://localhost:8090";
+  private baseURL = "http://localhost:8090/";
 
   constructor(private httpClient: HttpClient) { }
 
   getPlayerList(): Observable<Player[]>{
-    return this.httpClient.get<Player[]>(this.baseURL + "/all");
+    return this.httpClient.get<Player[]>(this.baseURL + "all")
   }
 
   getPlayerById(id: number): Observable<Object>{
-    return this.httpClient.get(this.baseURL + "/id/" + id);
+    return this.httpClient.get(this.baseURL + "id/" + id)
+  }
+
+  getPlayerByName(name: string) : Observable<Object>{
+    return this.httpClient.get(this.baseURL + "name/" + name)
+  }
+
+  getPlayerByRanking(ranking: number) : Observable<Object>{
+    return this.httpClient.get(this.baseURL + "ranking/" + ranking)
   }
 
   addPlayer(player: Player): Observable<Object>{
-    return this.httpClient.post(this.baseURL + "/add", player);
+    return this.httpClient.post(this.baseURL + "add", player)
   }
 
   updatePlayer(player: Player): Observable<Object>{
-    return this.httpClient.put(this.baseURL + "/update", player);
+    return this.httpClient.put(this.baseURL + "update", player)
   }
 }

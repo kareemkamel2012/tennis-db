@@ -10,10 +10,10 @@ import { Router } from '@angular/router';
 })
 export class UpdatePlayerComponent {
   player: Player = new Player();
+  id: number;
   constructor (private playerService: PlayerService, private router: Router) {}
 
   ngOnInit(): void {
-
   }
 
   updatePlayer() {

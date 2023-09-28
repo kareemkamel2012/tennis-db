@@ -1,0 +1,10 @@
+input {
+    background-color: transparent;
+    border: 0px;
+    outline: none;
+}
+
+.editable {
+    background-color: #DDDDDD;
+    text-decoration: underline;
+}

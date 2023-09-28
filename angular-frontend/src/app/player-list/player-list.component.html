@@ -8,8 +8,13 @@
     </thead>
     <tbody>
         <tr *ngFor = "let player of players">
-            <td> {{ player.name }}</td>
+            <td> <input type="text" [id]=player.name value="{{ player.name }}" [readonly]="!(isEdit.get(player.name))" [class.editable]="isEdit.get(player.name)"></td>
             <td> {{ player.ranking }} </td>
+            <td>
+                <div>
+                    <button (click)="changeEdit(player)">Edit</button>
+                </div>
+            </td>
         </tr>
     </tbody>
 </table>
