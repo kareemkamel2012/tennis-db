@@ -94,15 +94,9 @@ public class PlayerService {
     }
 
     public ResponseEntity<Player> updatePlayer(Player player) {
-        Optional<Player> playerById = repository.findById(player.getId());
-        if(!playerById.isPresent()) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
-//        if (repository.existsByName(name) || repository.existsByRanking(ranking)) {
-//            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-//        } //todo: figure out the logic here
-        repository.save(player);
-        return new ResponseEntity<>(player, HttpStatus.OK);
+        return repository.findById(player.getId())
+                .map(found -> new ResponseEntity<>(repository.save(player), HttpStatus.OK))
+                .orElse(new ResponseEntity<>(null, HttpStatus.NOT_FOUND));
     }
 
     public ResponseEntity<Void> deletePlayer(int id) {
