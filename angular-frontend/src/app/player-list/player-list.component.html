@@ -12,7 +12,7 @@
             <td> {{ player.ranking }} </td>
             <td>
                 <div>
-                    <button (click)="changeEdit(player)">Edit</button>
+                    <button (click)="changeEdit(player)">{{ isEdit.get(player.name) ? "Save" : "Edit"}}</button>
                 </div>
             </td>
         </tr>

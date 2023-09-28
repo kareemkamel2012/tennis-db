@@ -4,6 +4,10 @@ input {
     outline: none;
 }
 
+input[type="button"].editable {
+    content: "Save";
+}
+
 .editable {
     background-color: #DDDDDD;
     text-decoration: underline;
