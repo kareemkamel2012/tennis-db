@@ -8,12 +8,15 @@
     </thead>
     <tbody>
         <tr *ngFor = "let player of players">
-            <td> <input type="text" [id]=player.name value="{{ player.name }}" [readonly]="!(isEdit.get(player.name))" [class.editable]="isEdit.get(player.name)"></td>
-            <td> {{ player.ranking }} </td>
+            <td> <input id="name{{player.id}}" type="text" value="{{ player.name }}" [readonly]="!(isEdit.get(player.id))" [class.editable]="isEdit.get(player.id)"
+                 [class.fixed]="!isEdit.get(player.id)"></td>
+            <td> <input id="ranking{{player.id}}" type="number" value="{{ player.ranking }}" [readonly]="!(isEdit.get(player.id))" [class.editable]="isEdit.get(player.id)" 
+                [class.fixed]="!isEdit.get(player.id)"></td>
             <td>
-                <div>
-                    <button (click)="changeEdit(player)">{{ isEdit.get(player.name) ? "Save" : "Edit"}}</button>
-                </div>
+                <button (click)="edit(player)">{{ isEdit.get(player.id) ? "Save" : "Edit"}}</button>
+            </td>
+            <td>
+                <button (click)="deleteButton(player)">Delete</button>
             </td>
         </tr>
     </tbody>

@@ -8,7 +8,19 @@ input[type="button"].editable {
     content: "Save";
 }
 
+input.fixed::-webkit-outer-spin-button,
+input.fixed::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+ 
+input[type=number].fixed {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
 .editable {
     background-color: #DDDDDD;
     text-decoration: underline;
 }
+

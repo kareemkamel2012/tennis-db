@@ -36,4 +36,9 @@ export class PlayerService {
   updatePlayer(player: Player): Observable<Object>{
     return this.httpClient.put(this.baseURL + "update", player)
   }
+
+  deletePlayerById(id: number): Observable<Object> {
+    return this.httpClient.delete(this.baseURL + "delete/" + id)
+  }
 }
+

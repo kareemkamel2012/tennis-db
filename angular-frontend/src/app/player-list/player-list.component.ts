@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Player } from '../player'
 import { PlayerService } from '../player.service';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-player-list',
@@ -11,8 +11,8 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 export class PlayerListComponent {
 
     players: Player[];
-    controls: FormArray;
     isEdit = new Map();
+    names = new Map();
 
     constructor(private playerService: PlayerService) {}
 
@@ -29,12 +29,43 @@ export class PlayerListComponent {
 
     private initializeMaps() {
       for (let player of this.players) {
-        this.isEdit.set(player.name, false)
+        this.isEdit.set(player.id, false)
+        this.names.set(player.id, new FormControl(player.name))
       }
     }
 
-    changeEdit(player : Player) {
-      console.log("changing from " + this.isEdit + " to " + !this.isEdit);
-      this.isEdit.set(player.name, !this.isEdit.get(player.name));
+    private updatePlayer(player: Player) {
+      let name = <HTMLInputElement>document.getElementById("name" + player.id)
+      let ranking = <HTMLInputElement>document.getElementById("ranking" + player.id)
+      if (name != null && ranking != null) {
+        player.name = name.value
+        player.ranking = parseInt(ranking.value)
+        this.playerService.updatePlayer(player).subscribe( data => {
+          console.log(data);
+        },
+        error => console.log(error));
+      }
+    }
+
+    private deletePlayerById(id: number) {
+      this.playerService.deletePlayerById(id).subscribe( data => {
+        console.log(data);
+      },
+      error => console.log(error));
+    }
+
+    edit(player: Player) {
+      if (this.isEdit.get(player.id) == true) {
+        console.log(player.id)
+        this.updatePlayer(player)
+      }
+      this.isEdit.set(player.id, !this.isEdit.get(player.id));
+    }
+
+    deleteButton(player: Player) {
+      this.deletePlayerById(player.id)
+      this.getPlayers();
+      this.deletePlayerById(player.id)
+      this.getPlayers();
     }
 }
