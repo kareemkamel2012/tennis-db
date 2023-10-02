@@ -90,8 +90,8 @@ public class MainController {
         return service.updatePlayer(player);
     }
 
-    @DeleteMapping(path="/delete")
-    public @ResponseBody ResponseEntity<Void> deletePlayer (@RequestParam Integer id) {
+    @DeleteMapping(path="/delete/{id}")
+    public @ResponseBody ResponseEntity<Void> deletePlayer (@PathVariable("id") Integer id) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
         return service.deletePlayer(id);
